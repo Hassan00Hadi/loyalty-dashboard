@@ -1,0 +1,17 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+.DS_Store
+
+# Local environment overrides. `.env.example` and `.env.development` are
+# committed; anything carrying a real host or secret is not.
+.env
+.env.*.local
+.env.production
+
+# Editor / tooling
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.tsbuildinfo

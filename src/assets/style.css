@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /*
+   * The palette lives here as channel triplets so Tailwind's `<alpha-value>` works.
+   * Light is the bare `:root`; dark redefines only what changes. Nothing below
+   * this block needs a `dark:` variant to get its colour right.
+   */
+  :root {
+    --c-canvas: 246 246 250;
+    --c-surface: 255 255 255;
+    --c-surface-muted: 249 249 252;
+    --c-border: 228 228 238;
+    --c-text: 24 20 38;
+    --c-text-muted: 92 88 112;
+    --c-text-subtle: 138 134 158;
+  }
+
+  .dark {
+    --c-canvas: 15 13 24;
+    --c-surface: 24 21 35;
+    --c-surface-muted: 30 26 44;
+    --c-border: 48 43 66;
+    --c-text: 240 239 245;
+    --c-text-muted: 165 161 184;
+    --c-text-subtle: 122 118 142;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-content font-sans antialiased;
+  }
+
+  /* Arabic sets its own stack so the Latin face never wins for Arabic glyphs. */
+  html[lang='ar'] body {
+    @apply font-arabic;
+  }
+
+  /* A visible, brand-coloured focus ring on every interactive element. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-canvas;
+  }
+
+  ::-webkit-scrollbar {
+    @apply h-2.5 w-2.5;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-hairline;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-content-subtle;
+  }
+}
+
+@layer components {
+  /*
+   * Shared field chrome. Inputs, selects and textareas differ in behaviour but
+   * not in appearance, so the look is defined once here instead of being
+   * repeated as a long class string in each Base* component.
+   */
+  .field-base {
+    @apply w-full rounded-lg border border-hairline bg-surface px-3 py-2 text-sm text-content
+           shadow-sm transition placeholder:text-content-subtle
+           focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30
+           disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-content-muted;
+  }
+
+  .field-invalid {
+    @apply border-danger-500 focus:border-danger-500 focus:ring-danger-500/30;
+  }
+
+  .card-base {
+    @apply rounded-card border border-hairline bg-surface shadow-card;
+  }
+}
+
+@layer utilities {
+  /* Hides an element visually while leaving it available to screen readers. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    @apply sr-only;
+  }
+
+  .skeleton-shimmer {
+    @apply relative overflow-hidden bg-surface-muted;
+  }
+
+  .skeleton-shimmer::after {
+    @apply absolute inset-0 -translate-x-full;
+    content: '';
+    background-image: linear-gradient(
+      90deg,
+      rgb(var(--c-surface) / 0) 0,
+      rgb(var(--c-surface) / 0.55) 50%,
+      rgb(var(--c-surface) / 0) 100%
+    );
+    animation: shimmer 1.6s infinite;
+  }
+}
+
+/*
+ * Print.
+ *
+ * A voucher is meant to be handed over on paper. The app chrome and the modal
+ * overlay are both hidden, leaving only the elements a component marked
+ * `print:block` — see VoucherDetailModal's print sheet.
+ */
+@media print {
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* App chrome: never useful on paper. */
+  header,
+  aside,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  /*
+   * Teleported overlays (modals, drawers, toasts) land at the end of <body>.
+   * They paginate badly because they are fixed and transformed, so they are
+   * suppressed and the dedicated print block is shown instead.
+   */
+  body > [data-overlay],
+  body > div[class*='fixed'] {
+    display: none !important;
+  }
+
+  @page {
+    margin: 12mm;
+  }
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Two icons, because the lockup does not survive every size. The browser
+         picks by `sizes`: the full fiberX wordmark wherever there is room for it
+         (32px and up, bookmarks, the task switcher), and the X monogram at 16px,
+         where the word collapses into an unreadable smear. Both are the supplied
+         artwork on the brand violet. -->
+    <link rel="icon" type="image/png" sizes="32x32 48x48 96x96 192x192" href="/favicon-lockup.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon-lockup.png" />
+    <meta name="description" content="FiberX Loyalty Management Dashboard" />
+    <meta name="theme-color" content="#4A2B8C" />
+    <title>FiberX Loyalty</title>
+    <script>
+      // Applies the stored theme before the stylesheet paints, so a dark-mode
+      // user never sees a white flash on load. The store takes over after mount.
+      try {
+        var stored = localStorage.getItem('fiberx.loyalty.theme')
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (stored === 'dark' || ((!stored || stored === 'system') && prefersDark)) {
+          document.documentElement.classList.add('dark')
+          document.documentElement.style.colorScheme = 'dark'
+        }
+        // Arabic-first: anything other than an explicit 'en' paints as Arabic
+        // RTL, so the default case never flashes an LTR layout before mount.
+        var locale = localStorage.getItem('fiberx.loyalty.locale')
+        if (locale !== 'en') {
+          document.documentElement.lang = 'ar'
+          document.documentElement.dir = 'rtl'
+        }
+      } catch (error) {
+        // Blocked storage just means the defaults apply.
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
