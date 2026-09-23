@@ -158,6 +158,8 @@ const columns = computed<TableColumn[]>(() => [
   { key: 'cityName', label: t('branches.city'), hideBelow: 'md' },
   { key: 'address', label: t('branches.address'), hideBelow: 'lg' },
   { key: 'coordinates', label: t('branches.coordinates'), hideBelow: 'xl' },
+  { key: 'activatedVouchers', label: t('vouchers.activatedCount'), align: 'end', hideBelow: 'sm' },
+  { key: 'consumedVouchers', label: t('vouchers.consumedCount'), align: 'end', hideBelow: 'sm' },
   { key: 'isActive', label: t('common.status') },
   { key: 'actions', label: t('common.actions'), align: 'end' },
 ])
@@ -529,6 +531,14 @@ function mapsUrl(branch: MerchantBranch): string {
             {{ row.latitude }}, {{ row.longitude }}
             <ExternalLink class="size-3" aria-hidden="true" />
           </a>
+        </template>
+
+        <template #cell:activatedVouchers="{ row }">
+          <span class="tabular-nums">{{ fmt.number(row.activatedVouchers) }}</span>
+        </template>
+
+        <template #cell:consumedVouchers="{ row }">
+          <span class="tabular-nums">{{ fmt.number(row.consumedVouchers) }}</span>
         </template>
 
         <template #cell:isActive="{ row }">

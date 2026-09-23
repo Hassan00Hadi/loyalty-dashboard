@@ -79,15 +79,6 @@ offers deactivation instead of an action that would fail.
 | `/api/v1/loyalty/tiers` | GET | shared | `MembershipTiers.Read` | — | `MembershipTierDto[]` | Tiers, and every tier picker | List |
 | `/api/v1/loyalty/tiers` | POST | shared | `MembershipTiers.Create` | `CreateMembershipTierRequest` | `MembershipTierDto` | Tiers | Create |
 | `/api/v1/loyalty/tiers/{id}` | PATCH | shared | `MembershipTiers.Update` | `UpdateMembershipTierRequest` | `MembershipTierDto` | Tiers | Edit, activate/deactivate |
-| `/api/v1/loyalty/packages` | GET | shared | `Packages.Read` | — | `LoyaltyPackageDto[]` | Packages | List |
-| `/api/v1/loyalty/packages` | POST | shared | `Packages.Create` | `CreateLoyaltyPackageRequest` | `LoyaltyPackageDto` | Packages | Create |
-| `/api/v1/loyalty/packages/{id}` | PATCH | shared | `Packages.Update` | `UpdateLoyaltyPackageRequest` | `LoyaltyPackageDto` | Packages | Edit (external id is immutable) |
-| `/api/v1/loyalty/package-point-rules` | GET | shared | `PackageRules.Read` | `loyaltyPackageId?` | `PackagePointRuleDto[]` | Package Rules | List, package filter |
-| `/api/v1/loyalty/package-point-rules` | POST | shared | `PackageRules.Create` | `CreatePackagePointRuleRequest` | `PackagePointRuleDto` | Package Rules | Create |
-| `/api/v1/loyalty/package-point-rules/{id}` | PATCH | shared | `PackageRules.Update` | `UpdatePackagePointRuleRequest` | `PackagePointRuleDto` | Package Rules | Edit |
-
-Package rules are surfaced because the endpoints exist and are permissioned, but the page
-carries a warning: subscription processing no longer reads them.
 
 ## Administration
 
@@ -142,6 +133,6 @@ rather than a missing feature.
   the two wallet figures describe the fetched page — the cards say so.
 - **No time-series data.** No user-growth or activity-over-time chart is shown, because
   nothing in the API can answer it without fabrication.
-- **Unpaged list endpoints.** Categories, merchants, offers, branches, tiers, packages,
+- **Unpaged list endpoints.** Categories, merchants, offers, branches, tiers,
   rules, roles and clients all return full arrays; those tables filter in memory. Wallets,
   transactions, vouchers and admins are genuinely server-paged.

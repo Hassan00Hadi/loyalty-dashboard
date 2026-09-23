@@ -12,6 +12,7 @@ import {
   shortId,
   type AppLocale,
 } from '@/utils/format'
+import type { DiscountType } from '@/types/models'
 
 /**
  * Binds the formatting helpers to the active locale.
@@ -34,6 +35,11 @@ export function useFormat() {
     points: (value: number | null | undefined) => formatPoints(value, current.value),
     currency: (value: number | null | undefined) => formatCurrency(value, current.value),
     percent: (value: number | null | undefined) => formatPercent(value, current.value),
+    /** A percentage for percentage discounts, otherwise an IQD amount. */
+    discount: (type: DiscountType, value: number | null | undefined) =>
+      type === 'Percentage'
+        ? formatPercent(value, current.value)
+        : formatCurrency(value, current.value),
     bytes: (value: number | null | undefined) => formatBytes(value, current.value),
     shortId,
   }

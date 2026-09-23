@@ -96,7 +96,7 @@ const columns = computed<TableColumn[]>(() => [
       </template>
 
       <template #cell:discountPercentage="{ row }">
-        <span class="tabular-nums">{{ fmt.percent(row.discountPercentage) }}</span>
+        <span class="tabular-nums">{{ fmt.discount(row.discountType, row.discountValue) }}</span>
       </template>
 
       <template #cell:status="{ row }">

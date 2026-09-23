@@ -48,6 +48,13 @@ const { confirm } = useConfirm()
 const { can } = usePermissions()
 const { messageFor } = useApiError()
 
+/** Renders a voucher's discount by its own snapshotted type: `10%` or `10,000 د.ع`. */
+function discountLabel(voucher: Pick<ValidateVoucherResponse, 'discountType' | 'discountValue'>): string {
+  return voucher.discountType === 'FixedAmount'
+    ? fmt.currency(voucher.discountValue)
+    : fmt.percent(voucher.discountValue)
+}
+
 const tabs = computed<TabItem[]>(() => {
   const items: TabItem[] = []
   if (can(P.VouchersValidate) || can(P.VouchersConsume)) {
@@ -282,8 +289,11 @@ function lookupMember(): void {
             </div>
             <div class="flex items-center justify-between gap-3">
               <dt class="text-content-muted">{{ $t('vouchers.discount') }}</dt>
-              <dd class="font-semibold tabular-nums">
-                {{ fmt.percent(validation.discountPercentage) }}
+              <dd class="flex items-center gap-2">
+                <span class="font-semibold tabular-nums">{{ discountLabel(validation) }}</span>
+                <BaseBadge v-if="validation.discountType === 'FixedAmount'" size="sm" variant="accent">
+                  {{ $t('discountTypes.FixedAmount') }}
+                </BaseBadge>
               </dd>
             </div>
             <div class="flex items-center justify-between gap-3">

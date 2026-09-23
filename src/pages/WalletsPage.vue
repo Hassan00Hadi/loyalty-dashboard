@@ -24,16 +24,17 @@ import { useTierLabel } from '@/composables/useTierLabel'
 import { P } from '@/utils/permissions'
 
 /**
- * The Points Wallet: user, phone number, total points and tier.
+ * The Points Wallet: member name, phone number, city, total points and tier.
  *
  * Genuinely server-paged: only the requested page is fetched, and both the tier
- * filter and the phone-number search are real query parameters, so a large
- * member base costs one page of rows per view.
+ * filter and the name / phone-number search are real query parameters, so a
+ * large member base costs one page of rows per view.
+ *
+ * Name, phone number and city are copied from the member's mobile token by the
+ * backend, so they stay empty for a member who has not yet used the app.
  *
  * The tier shown is the backend's `displayTier` (Bronze / Silver / Gold), never
- * recomputed here from the rank's level. There is deliberately no city column:
- * the loyalty service stores no city for a member, so displaying one would mean
- * inventing a relationship the API does not model.
+ * recomputed here from the rank's level.
  */
 const { t } = useI18n()
 const fmt = useFormat()
@@ -45,7 +46,7 @@ const tierFilter = ref<string | null>(null)
 const search = ref('')
 
 /**
- * Debounced so that typing a phone number issues one request rather than one per
+ * Debounced so that typing a name or phone number issues one request rather than one per
  * keystroke — the search is a server round trip, not a filter over loaded rows.
  */
 const searchQuery = useDebouncedRef(search, 350)
@@ -73,14 +74,11 @@ const tierOptions = computed<SelectOption[]>(() =>
     .map((tier) => ({ value: tier.id, label: tier.name })),
 )
 
-/**
- * The columns the Points Wallet shows: user, phone number, total points, tier.
- *
- * No city column, by design — see the note at the top of this file.
- */
+/** The columns the Points Wallet shows: member, phone number, city, total points, tier. */
 const columns = computed<TableColumn[]>(() => [
-  { key: 'userId', label: t('wallets.user'), mono: true },
+  { key: 'userId', label: t('wallets.user') },
   { key: 'phoneNumber', label: t('wallets.phoneNumber'), hideBelow: 'sm' },
+  { key: 'city', label: t('wallets.city'), hideBelow: 'md' },
   { key: 'points', label: t('wallets.totalPoints'), align: 'end' },
   { key: 'rank', label: t('wallets.tier') },
   { key: 'updatedAt', label: t('wallets.updatedAt'), hideBelow: 'lg' },
@@ -132,10 +130,15 @@ const columns = computed<TableColumn[]>(() => [
         :empty-body="$t('wallets.emptyHint')"
         @retry="wallets.refresh()"
       >
+        <!-- The name leads; the external user ID stays underneath for copying. -->
         <template #cell:userId="{ row }">
-          <div class="flex items-center gap-1.5">
-            <span class="truncate" :title="row.userId" dir="ltr">{{ fmt.shortId(row.userId) }}</span>
-            <CopyButton :value="row.userId" />
+          <div class="min-w-0">
+            <p v-if="row.fullName" class="truncate font-medium">{{ row.fullName }}</p>
+            <p v-else class="text-xs text-content-subtle">{{ $t('wallets.noName') }}</p>
+            <div class="flex items-center gap-1.5 font-mono text-xs text-content-muted">
+              <span class="truncate" :title="row.userId" dir="ltr">{{ fmt.shortId(row.userId) }}</span>
+              <CopyButton :value="row.userId" />
+            </div>
           </div>
         </template>
 
@@ -145,6 +148,11 @@ const columns = computed<TableColumn[]>(() => [
           <span v-else class="text-xs text-content-subtle">
             {{ $t('wallets.noPhoneNumber') }}
           </span>
+        </template>
+
+        <template #cell:city="{ row }">
+          <span v-if="row.cityName">{{ row.cityName }}</span>
+          <span v-else class="text-xs text-content-subtle">{{ $t('wallets.noCity') }}</span>
         </template>
 
         <template #cell:points="{ row }">
@@ -198,7 +206,7 @@ const columns = computed<TableColumn[]>(() => [
     </BaseCard>
 
     <!--
-      The phone-number search is a query parameter, so the pagination footer
+      The name / phone-number search is a query parameter, so the pagination footer
       already reports the true total for the current filters and no separate
       "showing n of the loaded page" caveat is needed.
     -->

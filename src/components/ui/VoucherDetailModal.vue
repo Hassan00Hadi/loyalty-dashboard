@@ -115,7 +115,7 @@ function print(): void {
         <div class="flex items-center justify-between gap-3">
           <dt class="text-content-muted">{{ $t('vouchers.discount') }}</dt>
           <dd class="font-semibold tabular-nums text-content">
-            {{ fmt.percent(voucher.discountPercentage) }}
+            {{ fmt.discount(voucher.discountType, voucher.discountValue) }}
           </dd>
         </div>
         <div class="flex items-center justify-between gap-3">
@@ -172,7 +172,7 @@ function print(): void {
     <img v-if="qrDataUrl" :src="qrDataUrl" alt="" class="mb-3 size-48" />
     <p class="font-mono text-lg font-bold" dir="ltr">{{ voucher.voucherCode }}</p>
     <p class="mt-2 text-sm">
-      {{ $t('vouchers.discount') }}: {{ fmt.percent(voucher.discountPercentage) }}
+      {{ $t('vouchers.discount') }}: {{ fmt.discount(voucher.discountType, voucher.discountValue) }}
     </p>
     <p class="text-sm">{{ $t('vouchers.expiresAt') }}: {{ fmt.dateTime(voucher.expiresAt) }}</p>
   </div>

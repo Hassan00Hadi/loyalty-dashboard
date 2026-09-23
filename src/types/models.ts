@@ -221,15 +221,18 @@ export interface PointsSummary {
 /**
  * A member's wallet as the API exposes it.
  *
- * Note what is absent: the loyalty service stores no city for a member, so there
- * is deliberately no `city` field here and none is displayed. Adding one would
- * invent a relationship the backend does not model. Name and lifetime
- * earned/spent likewise live in the upstream subscription system.
+ * Name, phone number and city are copied from the member's mobile token, so they
+ * are null until the member has used the app. Lifetime earned/spent live in the
+ * upstream subscription system.
  */
 export interface UserLoyalty {
   userId: string
+  fullName: string | null
   /** Shown on the Points Wallet alongside the member's points and tier. */
   phoneNumber: string | null
+  /** The token's city matched to a configured city; null when absent or unmatched. */
+  cityId: string | null
+  cityName: string | null
   points: PointsSummary
   rank: MembershipTierSummary | null
   updatedAt: string
@@ -281,6 +284,10 @@ export interface Voucher {
   offerId: string
   offerTitle: string
   merchantName: string | null
+  discountType: DiscountType
+  /** A percentage when `discountType` is Percentage, otherwise an amount in IQD. */
+  discountValue: number
+  /** Legacy: equals `discountValue` for percentage offers, zero for fixed-amount ones. */
   discountPercentage: number
   status: VoucherStatus
   createdAt: string
@@ -308,6 +315,9 @@ export interface ValidateVoucherResponse {
   valid: boolean
   voucherCode: string
   status: VoucherStatus
+  discountType: DiscountType
+  /** A percentage when `discountType` is Percentage, otherwise an amount in IQD. */
+  discountValue: number
   discountPercentage: number
   offer: MerchantOfferRef
   expiresAt: string
@@ -327,6 +337,8 @@ export interface ConsumeVoucherRequest {
 export interface ConsumeVoucherResponse {
   voucherCode: string
   status: VoucherStatus
+  discountType: DiscountType
+  discountValue: number
   discountPercentage: number
   usedAt: string
   orderId: string | null
@@ -392,6 +404,12 @@ export interface AdminMerchant {
   isActive: boolean
   offerCount: number
   branchCount: number
+  /** Vouchers ever issued against this merchant's offers. */
+  activatedVouchers: number
+  /** Of those, the vouchers already consumed. */
+  consumedVouchers: number
+  /** General vouchers (offers without a merchant) consumed at this merchant. */
+  generalVouchersConsumed: number
   /** The cities this merchant operates in, as the backend reports them. */
   cities: MerchantCity[]
   createdAt: string
@@ -456,6 +474,13 @@ export interface MerchantBranch {
   iconUrl: string | null
   iconAttachmentId: string | null
   isActive: boolean
+  /**
+   * Vouchers issued for this branch. Only branch-bound offers issue a voucher
+   * for a specific branch, so vouchers valid at any branch are not counted here.
+   */
+  activatedVouchers: number
+  /** Vouchers consumed at this branch, whether branch-bound or not. */
+  consumedVouchers: number
   createdAt: string
   updatedAt: string | null
 }
@@ -861,7 +886,7 @@ export interface AdminOfferQuery extends PageRequest {
   sortDirection?: SortDirection
 }
 
-// ── Configuration: tiers, packages, rules, point settings ─────────────────────
+// ── Configuration: tiers, point settings ──────────────────────────────────────
 
 export interface MembershipTier {
   id: string
@@ -888,53 +913,6 @@ export interface UpdateMembershipTierRequest {
   level?: number | null
   description?: string | null
   iconUrl?: string | null
-  isActive?: boolean | null
-}
-
-export interface LoyaltyPackage {
-  id: string
-  externalPackageId: string
-  packageName: string
-  isActive: boolean
-  createdAt: string
-  updatedAt: string | null
-}
-
-export interface CreateLoyaltyPackageRequest {
-  externalPackageId: string
-  packageName: string
-  isActive: boolean
-}
-
-export interface UpdateLoyaltyPackageRequest {
-  packageName?: string | null
-  isActive?: boolean | null
-}
-
-export interface PackagePointRule {
-  id: string
-  loyaltyPackageId: string
-  externalPackageId: string | null
-  packageName: string | null
-  membershipTierId: string
-  membershipTierName: string | null
-  membershipTierLevel: number
-  points: number
-  isActive: boolean
-  createdAt: string
-  updatedAt: string | null
-}
-
-export interface CreatePackagePointRuleRequest {
-  loyaltyPackageId: string
-  membershipTierId: string
-  points: number
-  isActive: boolean
-}
-
-export interface UpdatePackagePointRuleRequest {
-  membershipTierId?: string | null
-  points?: number | null
   isActive?: boolean | null
 }
 

@@ -1,21 +1,14 @@
 import { apiGet, apiPatch, apiPost, apiPut } from './client'
 import type {
-  CreateLoyaltyPackageRequest,
   CreateMembershipTierRequest,
-  CreatePackagePointRuleRequest,
   LoyaltyConfiguration,
-  LoyaltyPackage,
   MembershipTier,
-  PackagePointRule,
   UpdateLoyaltyConfigurationRequest,
-  UpdateLoyaltyPackageRequest,
   UpdateMembershipTierRequest,
-  UpdatePackagePointRuleRequest,
 } from '@/types/models'
 
 /**
- * Loyalty configuration: the point formula, membership tiers, packages and the
- * legacy package point rules.
+ * Loyalty configuration: the point formula and membership tiers.
  */
 
 // ── Point settings ────────────────────────────────────────────────────────────
@@ -54,47 +47,3 @@ export function updateTier(
   return apiPatch<MembershipTier>(`/api/v1/loyalty/tiers/${id}`, body)
 }
 
-// ── Loyalty packages ──────────────────────────────────────────────────────────
-
-/** `GET /api/v1/loyalty/packages` — Packages.Read. Not paged. */
-export function listPackages(): Promise<LoyaltyPackage[]> {
-  return apiGet<LoyaltyPackage[]>('/api/v1/loyalty/packages')
-}
-
-/** `POST /api/v1/loyalty/packages` — Packages.Create. */
-export function createPackage(body: CreateLoyaltyPackageRequest): Promise<LoyaltyPackage> {
-  return apiPost<LoyaltyPackage>('/api/v1/loyalty/packages', body)
-}
-
-/** `PATCH /api/v1/loyalty/packages/{id}` — Packages.Update. */
-export function updatePackage(
-  id: string,
-  body: UpdateLoyaltyPackageRequest,
-): Promise<LoyaltyPackage> {
-  return apiPatch<LoyaltyPackage>(`/api/v1/loyalty/packages/${id}`, body)
-}
-
-// ── Package point rules ───────────────────────────────────────────────────────
-// Retained because the endpoints exist and are permissioned, but note that
-// subscription processing no longer consults them: awards come from the global
-// point formula above. The UI says so on the page itself.
-
-/** `GET /api/v1/loyalty/package-point-rules` — PackageRules.Read. */
-export function listPackageRules(loyaltyPackageId?: string | null): Promise<PackagePointRule[]> {
-  return apiGet<PackagePointRule[]>('/api/v1/loyalty/package-point-rules', { loyaltyPackageId })
-}
-
-/** `POST /api/v1/loyalty/package-point-rules` — PackageRules.Create. */
-export function createPackageRule(
-  body: CreatePackagePointRuleRequest,
-): Promise<PackagePointRule> {
-  return apiPost<PackagePointRule>('/api/v1/loyalty/package-point-rules', body)
-}
-
-/** `PATCH /api/v1/loyalty/package-point-rules/{id}` — PackageRules.Update. */
-export function updatePackageRule(
-  id: string,
-  body: UpdatePackagePointRuleRequest,
-): Promise<PackagePointRule> {
-  return apiPatch<PackagePointRule>(`/api/v1/loyalty/package-point-rules/${id}`, body)
-}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { CircleCheck, Send, TriangleAlert } from 'lucide-vue-next'
+import { CircleCheck, Send } from 'lucide-vue-next'
 import BaseAlert from '@/components/ui/BaseAlert.vue'
 import BaseBadge from '@/components/ui/BaseBadge.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
@@ -360,10 +360,6 @@ const awardedNothing = computed(() => result.value !== null && result.value.poin
             floor(price ÷ {{ configuration.data.value.amountIqd }})
             × {{ configuration.data.value.points }}
           </div>
-          <p class="mt-3 flex gap-2 text-xs text-content-subtle">
-            <TriangleAlert class="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
-            <span>{{ $t('packages.legacyNote') }}</span>
-          </p>
         </BaseCard>
       </div>
     </div>

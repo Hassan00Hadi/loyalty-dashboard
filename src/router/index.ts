@@ -194,26 +194,6 @@ const routes: RouteRecordRaw[] = [
           anyPermission: [P.LoyaltyConfigurationRead],
         },
       },
-      {
-        path: 'settings/packages',
-        name: 'packages',
-        component: () => import('@/pages/PackagesPage.vue'),
-        meta: {
-          titleKey: 'packages.title',
-          breadcrumb: 'packages.title',
-          anyPermission: [P.PackagesRead],
-        },
-      },
-      {
-        path: 'settings/package-rules',
-        name: 'package-rules',
-        component: () => import('@/pages/PackageRulesPage.vue'),
-        meta: {
-          titleKey: 'packageRules.title',
-          breadcrumb: 'packageRules.title',
-          anyPermission: [P.PackageRulesRead],
-        },
-      },
 
       // ── Administration ────────────────────────────────────────────────────
       {

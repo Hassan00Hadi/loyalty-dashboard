@@ -112,6 +112,14 @@ const columns = computed<TableColumn[]>(() => [
   { key: 'cities', label: t('merchants.cities'), hideBelow: 'sm' },
   { key: 'branchCount', label: t('merchants.branchCount'), align: 'end', hideBelow: 'md' },
   { key: 'offerCount', label: t('merchants.offerCount'), align: 'end', hideBelow: 'xl' },
+  { key: 'activatedVouchers', label: t('vouchers.activatedCount'), align: 'end', hideBelow: 'lg' },
+  { key: 'consumedVouchers', label: t('vouchers.consumedCount'), align: 'end', hideBelow: 'lg' },
+  {
+    key: 'generalVouchersConsumed',
+    label: t('vouchers.generalConsumedCount'),
+    align: 'end',
+    hideBelow: 'lg',
+  },
   { key: 'isActive', label: t('common.status') },
   { key: 'actions', label: t('common.actions'), align: 'end' },
 ])
@@ -367,6 +375,18 @@ async function toggleActive(merchant: AdminMerchant): Promise<void> {
 
         <template #cell:offerCount="{ row }">
           <span class="tabular-nums">{{ fmt.number(row.offerCount) }}</span>
+        </template>
+
+        <template #cell:activatedVouchers="{ row }">
+          <span class="tabular-nums">{{ fmt.number(row.activatedVouchers) }}</span>
+        </template>
+
+        <template #cell:consumedVouchers="{ row }">
+          <span class="tabular-nums">{{ fmt.number(row.consumedVouchers) }}</span>
+        </template>
+
+        <template #cell:generalVouchersConsumed="{ row }">
+          <span class="tabular-nums">{{ fmt.number(row.generalVouchersConsumed) }}</span>
         </template>
 
         <template #cell:isActive="{ row }">

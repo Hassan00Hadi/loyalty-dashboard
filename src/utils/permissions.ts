@@ -65,14 +65,6 @@ export const P = {
   MembershipTiersCreate: 'MembershipTiers.Create',
   MembershipTiersUpdate: 'MembershipTiers.Update',
 
-  PackagesRead: 'Packages.Read',
-  PackagesCreate: 'Packages.Create',
-  PackagesUpdate: 'Packages.Update',
-
-  PackageRulesRead: 'PackageRules.Read',
-  PackageRulesCreate: 'PackageRules.Create',
-  PackageRulesUpdate: 'PackageRules.Update',
-
   LoyaltyConfigurationRead: 'LoyaltyConfiguration.Read',
   LoyaltyConfigurationUpdate: 'LoyaltyConfiguration.Update',
 
