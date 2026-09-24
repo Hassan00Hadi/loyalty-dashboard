@@ -120,10 +120,24 @@ function amountClass(type: PointTransactionType): string {
           <p v-else-if="row.packageName" class="truncate text-xs text-content-muted">
             {{ row.packageName }}
           </p>
-          <p v-else-if="row.description" class="truncate text-xs text-content-muted">
+
+          <!--
+            Shown alongside the calculation rather than instead of it: the backend
+            uses it for what the arithmetic cannot say, such as a purchase that
+            failed and was not charged.
+          -->
+          <p
+            v-if="row.description"
+            class="line-clamp-2 max-w-xs text-xs text-content"
+            :title="row.description"
+          >
             {{ row.description }}
           </p>
-          <span v-else class="text-xs text-content-subtle">—</span>
+
+          <span
+            v-if="row.amountSpent === null && !row.packageName && !row.description"
+            class="text-xs text-content-subtle"
+          >—</span>
 
           <span
             v-if="row.isMobileApp"
