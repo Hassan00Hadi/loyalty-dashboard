@@ -236,6 +236,16 @@ const routes: RouteRecordRaw[] = [
           anyPermission: [P.ClientsRead],
         },
       },
+      {
+        path: 'logs',
+        name: 'logs',
+        component: () => import('@/pages/LogsPage.vue'),
+        meta: {
+          titleKey: 'logs.title',
+          breadcrumb: 'logs.title',
+          anyPermission: [P.LogsRead],
+        },
+      },
 
       {
         path: 'profile',

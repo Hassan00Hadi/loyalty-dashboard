@@ -13,6 +13,18 @@ function isNormalised(value: unknown): value is NormalisedError {
 }
 
 /**
+ * Whether a failure's trace id is worth putting in front of the user.
+ *
+ * Only for a server fault or a failure nothing explains: that is when someone has to
+ * ask the backend team what happened, and the trace id is how they find it. A
+ * validation, permission or not-found error already says what went wrong.
+ */
+export function showsTraceId(error: NormalisedError | null | undefined): error is NormalisedError & { traceId: string } {
+  if (!error?.traceId) return false
+  return error.status === null || error.status >= 500 || error.code === 'UNKNOWN_ERROR'
+}
+
+/**
  * Turns a thrown API failure into text a user should see.
  *
  * The rule is: prefer a localised message for a code we know, fall back to the
@@ -97,7 +109,11 @@ export function useApiError() {
     if (normalised.status === 401) return normalised
 
     const description = messageFor(error)
-    toast.error(title ?? t('errors.generic'), description, normalised.traceId)
+    toast.error(
+      title ?? t('errors.generic'),
+      description,
+      showsTraceId(normalised) ? normalised.traceId : null,
+    )
     return normalised
   }
 

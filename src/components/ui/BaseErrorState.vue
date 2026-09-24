@@ -2,8 +2,9 @@
 import { computed } from 'vue'
 import { CloudOff, RefreshCw, ShieldOff, TriangleAlert } from 'lucide-vue-next'
 import BaseButton from './BaseButton.vue'
+import TraceReference from './TraceReference.vue'
 import type { NormalisedError } from '@/types/api'
-import { useApiError } from '@/composables/useApiError'
+import { showsTraceId, useApiError } from '@/composables/useApiError'
 
 const props = withDefaults(
   defineProps<{
@@ -64,9 +65,7 @@ const bodyText = computed(() => {
     <p class="mx-auto mt-1.5 max-w-md text-sm leading-relaxed text-content-muted">
       {{ kind === 'forbidden' ? $t('states.forbiddenBody') : bodyText || $t('states.errorBody') }}
     </p>
-    <p v-if="error?.traceId" class="mt-2 font-mono text-xs text-content-subtle">
-      {{ $t('errors.traceId', { id: error.traceId }) }}
-    </p>
+    <TraceReference v-if="showsTraceId(error)" :trace-id="error.traceId" class="mt-2 text-xs" />
 
     <BaseButton v-if="kind !== 'forbidden'" variant="secondary" class="mt-5" @click="emit('retry')">
       <template #icon><RefreshCw class="size-4" /></template>

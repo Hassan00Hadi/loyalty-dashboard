@@ -8,6 +8,7 @@ import {
   formatNumber,
   formatPercent,
   formatPoints,
+  formatPreciseTime,
   formatTime,
   shortId,
   type AppLocale,
@@ -30,6 +31,8 @@ export function useFormat() {
     date: (value: string | Date | null | undefined) => formatDate(value, current.value),
     dateTime: (value: string | Date | null | undefined) => formatDateTime(value, current.value),
     time: (value: string | Date | null | undefined) => formatTime(value, current.value),
+    preciseTime: (value: string | Date | null | undefined) =>
+      formatPreciseTime(value, current.value),
     number: (value: number | null | undefined, options?: Intl.NumberFormatOptions) =>
       formatNumber(value, current.value, options),
     points: (value: number | null | undefined) => formatPoints(value, current.value),

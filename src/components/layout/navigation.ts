@@ -2,6 +2,7 @@ import {
   Building2,
   ChartColumn,
   CreditCard,
+  FileText,
   FolderTree,
   Gauge,
   KeyRound,
@@ -153,6 +154,7 @@ export const navigation: NavSection[] = [
         icon: KeyRound,
         anyPermission: [P.ClientsRead],
       },
+      { name: 'logs', labelKey: 'nav.logs', icon: FileText, anyPermission: [P.LogsRead] },
     ],
   },
 ]

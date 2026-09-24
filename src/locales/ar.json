@@ -103,6 +103,7 @@
     "permissions": "الصلاحيات",
     "system": "النظام",
     "integration": "عملاء الـ API",
+    "logs": "سجلات الخادم",
     "profile": "ملفي الشخصي",
     "toggleSidebar": "تبديل القائمة الجانبية",
     "openMenu": "فتح القائمة",
@@ -745,7 +746,57 @@
       "UserVouchers": "قسائم الأعضاء",
       "Subscriptions": "الاشتراكات",
       "Vouchers": "القسائم",
-      "Redemptions": "سجل الاستبدال"
+      "Redemptions": "سجل الاستبدال",
+      "Logs": "سجلات الخادم"
+    }
+  },
+  "logs": {
+    "title": "سجلات الخادم",
+    "subtitle": "عرض ملفات سجلات الخادم وتنزيلها. يبدأ ملف جديد كل يوم (UTC)، وتُحفظ ملفات السجل لمدة 7 أيام.",
+    "fileName": "اسم الملف",
+    "category": "الفئة",
+    "size": "الحجم",
+    "lastModified": "آخر تعديل",
+    "view": "عرض",
+    "download": "تنزيل",
+    "downloadFull": "تنزيل الملف كاملاً",
+    "downloadFailed": "فشل تنزيل ملف السجل.",
+    "fileGone": "ملف السجل هذا لم يعد موجوداً. ربما حُذف ضمن التنظيف الدوري بعد 7 أيام.",
+    "searchPlaceholder": "ابحث في الأسطر…",
+    "lastLines": "آخر {count} سطر",
+    "autoRefresh": "تحديث تلقائي كل 5 ثوانٍ",
+    "truncated": "عرض آخر {shown} من أصل {total} سطر",
+    "lineCount": "{count} سطر",
+    "noMatches": "لا توجد أسطر مطابقة لهذا البحث.",
+    "fileEmpty": "هذا الملف فارغ.",
+    "noLevelMatches": "لا توجد أسطر بهذا المستوى.",
+    "filteredCount": "{count} معروض بهذا المستوى",
+    "levels": {
+      "all": "كل المستويات",
+      "warning": "التحذيرات والأخطاء",
+      "error": "الأخطاء فقط"
+    },
+    "columns": {
+      "time": "الوقت",
+      "method": "الطريقة",
+      "path": "المسار",
+      "status": "الحالة",
+      "duration": "المدة",
+      "user": "المستخدم"
+    },
+    "source": "المصدر",
+    "exception": "الاستثناء",
+    "innerException": "الاستثناء الداخلي",
+    "showTrace": "عرض كل الأسطر المسجلة لهذا الطلب",
+    "traceBanner": "أسطر سجل التطبيق للطلب",
+    "traceEmpty": "لم يُعثر على أسطر في سجل التطبيق لهذا الطلب.",
+    "backToFile": "العودة إلى الملف",
+    "empty": "لا توجد ملفات سجل.",
+    "emptyHint": "لم يُسجَّل شيء في هذه الفئة خلال مدة الاحتفاظ.",
+    "categories": {
+      "application": "التطبيق",
+      "errors": "الأخطاء",
+      "requests": "الطلبات"
     }
   },
   "clients": {
@@ -829,6 +880,7 @@
     "network": "تعذر الوصول إلى الخادم.",
     "timeout": "انتهت مهلة الطلب.",
     "traceId": "المرجع: {id}",
+    "copyTraceId": "نسخ المرجع كاملاً",
     "loadUsersFailed": "فشل تحميل المستخدمين.",
     "loadWalletsFailed": "فشل تحميل المحافظ.",
     "loadOffersFailed": "فشل تحميل العروض.",
@@ -842,6 +894,7 @@
     "loadRolesFailed": "فشل تحميل الأدوار.",
     "loadPermissionsFailed": "فشل تحميل الصلاحيات.",
     "loadClientsFailed": "فشل تحميل عملاء الـ API.",
+    "loadLogsFailed": "فشل تحميل ملفات السجل.",
     "loadSettingsFailed": "فشل تحميل إعدادات النقاط.",
     "loadPackagesFailed": "فشل تحميل الباقات.",
     "codes": {

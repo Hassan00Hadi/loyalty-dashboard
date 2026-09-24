@@ -69,6 +69,22 @@ export function formatTime(
   }).format(date)
 }
 
+/** Time to the millisecond, 24-hour, for log lines where order within a second matters. */
+export function formatPreciseTime(
+  value: string | Date | null | undefined,
+  locale: AppLocale,
+): string {
+  const date = toDate(value)
+  if (!date) return '—'
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    fractionalSecondDigits: 3,
+    hourCycle: 'h23',
+  }).format(date)
+}
+
 export function formatNumber(
   value: number | null | undefined,
   locale: AppLocale,

@@ -991,3 +991,68 @@ export interface AttachmentLinkRequest {
   ownerId?: string | null
   fileName?: string | null
 }
+
+// ── Server logs ───────────────────────────────────────────────────────────────
+
+/** The server keeps one rolling file set per category. */
+export type LogCategory = 'application' | 'errors' | 'requests'
+
+export interface LogFile {
+  category: LogCategory
+  /** e.g. `error-20260924.log`, or `error-20260924-001.log` once a day's file rolls over. */
+  fileName: string
+  sizeBytes: number
+  /** ISO 8601, UTC. */
+  lastModifiedUtc: string
+}
+
+/** The tail of one log file, as the viewer shows it. */
+export interface LogContent extends LogFile {
+  /** Every matching line in the file, or every line when there is no search. */
+  totalMatchedLines: number
+  /** More lines matched than were returned. */
+  truncated: boolean
+  /** File order: oldest first, newest last. */
+  lines: string[]
+}
+
+export interface LogContentQuery {
+  /** Lines from the end of the file, 1–5000. The server defaults to 200. */
+  tail?: number | null
+  /** Case-insensitive substring; `tail` then counts matching lines only. */
+  search?: string | null
+}
+
+export type LogLevel = 'Trace' | 'Debug' | 'Information' | 'Warning' | 'Error' | 'Critical'
+
+export interface LogException {
+  type: string
+  message: string
+  stackTrace?: string
+  inner?: { type: string; message: string }
+}
+
+/**
+ * One line of a log file, which the server writes as a JSON object.
+ *
+ * The four base fields are always present; the rest appear when relevant, and any
+ * key not named here is an extra structured value (`PointsAwarded`, `ElapsedMs`…).
+ * Keys are case-sensitive: `TraceId`, not `traceId`.
+ */
+export interface LogEntry {
+  timestamp: string
+  level: LogLevel
+  /** Logger name, e.g. `Loyalty_backend.service.Integration.MobileBackendClient`. */
+  category: string
+  message: string
+  eventId?: number
+  TraceId?: string
+  UserId?: string
+  RequestMethod?: string
+  RequestPath?: string
+  StatusCode?: number
+  /** Milliseconds. */
+  Elapsed?: number
+  exception?: LogException
+  [key: string]: unknown
+}

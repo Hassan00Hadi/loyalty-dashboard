@@ -89,6 +89,9 @@ export const P = {
   VouchersCancel: 'Vouchers.Cancel',
 
   AnalyticsRead: 'Analytics.Read',
+
+  // Server diagnostics
+  LogsRead: 'Logs.Read',
 } as const
 
 export type PermissionName = (typeof P)[keyof typeof P]

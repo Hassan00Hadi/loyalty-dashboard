@@ -103,6 +103,7 @@
     "permissions": "Permissions",
     "system": "System",
     "integration": "API Clients",
+    "logs": "Server Logs",
     "profile": "My Profile",
     "toggleSidebar": "Toggle sidebar",
     "openMenu": "Open menu",
@@ -745,7 +746,57 @@
       "UserVouchers": "Member Vouchers",
       "Subscriptions": "Subscriptions",
       "Vouchers": "Vouchers",
-      "Redemptions": "Redemptions"
+      "Redemptions": "Redemptions",
+      "Logs": "Server Logs"
+    }
+  },
+  "logs": {
+    "title": "Server Logs",
+    "subtitle": "View and download the server's log files. A new file starts each day (UTC), and log files are kept for 7 days.",
+    "fileName": "File name",
+    "category": "Category",
+    "size": "Size",
+    "lastModified": "Last modified",
+    "view": "View",
+    "download": "Download",
+    "downloadFull": "Download full file",
+    "downloadFailed": "Failed to download the log file.",
+    "fileGone": "This log file no longer exists. It may have been removed by the 7-day cleanup.",
+    "searchPlaceholder": "Search lines…",
+    "lastLines": "Last {count} lines",
+    "autoRefresh": "Auto-refresh every 5 seconds",
+    "truncated": "Showing last {shown} of {total} lines",
+    "lineCount": "{count} lines",
+    "noMatches": "No lines match this search.",
+    "fileEmpty": "This file is empty.",
+    "noLevelMatches": "No lines at this level.",
+    "filteredCount": "{count} shown at this level",
+    "levels": {
+      "all": "All levels",
+      "warning": "Warnings and errors",
+      "error": "Errors only"
+    },
+    "columns": {
+      "time": "Time",
+      "method": "Method",
+      "path": "Path",
+      "status": "Status",
+      "duration": "Duration",
+      "user": "User"
+    },
+    "source": "Source",
+    "exception": "Exception",
+    "innerException": "Inner exception",
+    "showTrace": "Show every line logged for this request",
+    "traceBanner": "Application log lines for request",
+    "traceEmpty": "No application log lines were found for this request.",
+    "backToFile": "Back to file",
+    "empty": "No log files found.",
+    "emptyHint": "Nothing has been logged in this category within the retention period.",
+    "categories": {
+      "application": "Application",
+      "errors": "Errors",
+      "requests": "Requests"
     }
   },
   "clients": {
@@ -829,6 +880,7 @@
     "network": "Could not reach the server.",
     "timeout": "The request timed out.",
     "traceId": "Reference: {id}",
+    "copyTraceId": "Copy full reference",
     "loadUsersFailed": "Failed to load users.",
     "loadWalletsFailed": "Failed to load wallets.",
     "loadOffersFailed": "Failed to load offers.",
@@ -842,6 +894,7 @@
     "loadRolesFailed": "Failed to load roles.",
     "loadPermissionsFailed": "Failed to load permissions.",
     "loadClientsFailed": "Failed to load API clients.",
+    "loadLogsFailed": "Failed to load log files.",
     "loadSettingsFailed": "Failed to load point settings.",
     "loadPackagesFailed": "Failed to load packages.",
     "codes": {

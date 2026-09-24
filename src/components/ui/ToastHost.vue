@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { CheckCircle2, Info, TriangleAlert, X, XCircle } from 'lucide-vue-next'
 import { useToastStore, type ToastVariant } from '@/stores/toast.store'
+import TraceReference from './TraceReference.vue'
 
 /**
  * Renders the global toast queue. Mounted once, near the root.
@@ -63,9 +64,11 @@ const accents: Record<ToastVariant, string> = {
             <p v-if="item.description" class="mt-0.5 text-sm leading-snug text-content-muted">
               {{ item.description }}
             </p>
-            <p v-if="item.traceId" class="mt-1 font-mono text-[0.6875rem] text-content-subtle">
-              {{ $t('errors.traceId', { id: item.traceId }) }}
-            </p>
+            <TraceReference
+              v-if="item.traceId"
+              :trace-id="item.traceId"
+              class="mt-1 text-[0.6875rem]"
+            />
           </div>
 
           <button
