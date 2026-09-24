@@ -97,6 +97,7 @@
     "subscriptions": "معالجة الاشتراكات",
     "configuration": "الإعدادات",
     "pointSettings": "إعدادات النقاط",
+    "pointsRules": "قواعد النقاط",
     "administration": "الإدارة",
     "admins": "المستخدمون الإداريون",
     "roles": "الأدوار",
@@ -747,7 +748,34 @@
       "Subscriptions": "الاشتراكات",
       "Vouchers": "القسائم",
       "Redemptions": "سجل الاستبدال",
-      "Logs": "سجلات الخادم"
+      "Logs": "سجلات الخادم",
+      "PointsRules": "قواعد النقاط"
+    }
+  },
+  "pointsRules": {
+    "title": "قواعد النقاط",
+    "subtitle": "قواعد مسماة تحدد عدد النقاط التي يستحقها أمر ما.",
+    "ruleTitle": "العنوان",
+    "titlePlaceholder": "مثال: مكافأة الإحالة",
+    "points": "النقاط",
+    "lastUpdated": "آخر تحديث",
+    "searchPlaceholder": "ابحث في العنوان أو الوصف…",
+    "allStatuses": "كل الحالات",
+    "create": "قاعدة جديدة",
+    "createTitle": "إنشاء قاعدة نقاط",
+    "editTitle": "تعديل قاعدة النقاط",
+    "created": "تم إنشاء قاعدة النقاط.",
+    "updated": "تم تحديث قاعدة النقاط.",
+    "notFound": "هذه القاعدة لم تعد موجودة. تم تحديث القائمة.",
+    "empty": "لا توجد قواعد نقاط بعد.",
+    "emptyHint": "أنشئ قاعدة لتحديد عدد النقاط التي يستحقها أمر ما.",
+    "noDeleteNote": "لا يمكن حذف القواعد. عطّل القاعدة لإيقاف العمل بها.",
+    "charactersLeft": "متبقٍ {count} حرف",
+    "validation": {
+      "titleTooLong": "يجب ألا يتجاوز العنوان {max} حرفاً.",
+      "descriptionRequired": "الوصف مطلوب.",
+      "descriptionTooLong": "يجب ألا يتجاوز الوصف {max} حرفاً.",
+      "pointsInvalid": "يجب أن تكون النقاط عدداً صحيحاً يساوي 0 أو أكثر."
     }
   },
   "logs": {
@@ -895,6 +923,7 @@
     "loadPermissionsFailed": "فشل تحميل الصلاحيات.",
     "loadClientsFailed": "فشل تحميل عملاء الـ API.",
     "loadLogsFailed": "فشل تحميل ملفات السجل.",
+    "loadPointsRulesFailed": "فشل تحميل قواعد النقاط.",
     "loadSettingsFailed": "فشل تحميل إعدادات النقاط.",
     "loadPackagesFailed": "فشل تحميل الباقات.",
     "codes": {

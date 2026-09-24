@@ -194,6 +194,16 @@ const routes: RouteRecordRaw[] = [
           anyPermission: [P.LoyaltyConfigurationRead],
         },
       },
+      {
+        path: 'settings/points-rules',
+        name: 'points-rules',
+        component: () => import('@/pages/PointsRulesPage.vue'),
+        meta: {
+          titleKey: 'pointsRules.title',
+          breadcrumb: 'pointsRules.title',
+          anyPermission: [P.PointsRulesRead],
+        },
+      },
 
       // ── Administration ────────────────────────────────────────────────────
       {

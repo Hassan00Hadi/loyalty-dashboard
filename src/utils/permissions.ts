@@ -68,6 +68,10 @@ export const P = {
   LoyaltyConfigurationRead: 'LoyaltyConfiguration.Read',
   LoyaltyConfigurationUpdate: 'LoyaltyConfiguration.Update',
 
+  PointsRulesRead: 'PointsRules.Read',
+  PointsRulesCreate: 'PointsRules.Create',
+  PointsRulesUpdate: 'PointsRules.Update',
+
   // Attachments
   AttachmentsRead: 'Attachments.Read',
   AttachmentsCreate: 'Attachments.Create',

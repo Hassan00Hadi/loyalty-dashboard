@@ -1056,3 +1056,37 @@ export interface LogEntry {
   exception?: LogException
   [key: string]: unknown
 }
+
+// ── Points rules ──────────────────────────────────────────────────────────────
+
+/** A named rule saying what something is worth, e.g. "Referral bonus — 500 points". */
+export interface PointsRule {
+  id: string
+  title: string | null
+  description: string
+  /** Whole number, 0 or more. */
+  points: number
+  isActive: boolean
+  createdAt: string
+  /** Null until the rule is first edited. */
+  updatedAt: string | null
+}
+
+export interface CreatePointsRuleRequest {
+  /** Blank is stored as null. */
+  title?: string | null
+  description: string
+  points?: number
+  isActive?: boolean
+}
+
+/**
+ * Sparse: an omitted field keeps its value. `title: ''` clears the title; a blank
+ * description is ignored, since a rule must always have one.
+ */
+export interface UpdatePointsRuleRequest {
+  title?: string
+  description?: string
+  points?: number
+  isActive?: boolean
+}

@@ -97,6 +97,7 @@
     "subscriptions": "Subscription Processing",
     "configuration": "Configuration",
     "pointSettings": "Point Settings",
+    "pointsRules": "Points Rules",
     "administration": "Administration",
     "admins": "Admin Users",
     "roles": "Roles",
@@ -747,7 +748,34 @@
       "Subscriptions": "Subscriptions",
       "Vouchers": "Vouchers",
       "Redemptions": "Redemptions",
-      "Logs": "Server Logs"
+      "Logs": "Server Logs",
+      "PointsRules": "Points Rules"
+    }
+  },
+  "pointsRules": {
+    "title": "Points Rules",
+    "subtitle": "Named rules that say how many points something is worth.",
+    "ruleTitle": "Title",
+    "titlePlaceholder": "e.g. Referral bonus",
+    "points": "Points",
+    "lastUpdated": "Last updated",
+    "searchPlaceholder": "Search title or description…",
+    "allStatuses": "All statuses",
+    "create": "New rule",
+    "createTitle": "Create points rule",
+    "editTitle": "Edit points rule",
+    "created": "Points rule created.",
+    "updated": "Points rule updated.",
+    "notFound": "This rule no longer exists. The list has been refreshed.",
+    "empty": "No points rules yet.",
+    "emptyHint": "Create a rule to say how many points something is worth.",
+    "noDeleteNote": "Rules cannot be deleted. Deactivate a rule to retire it.",
+    "charactersLeft": "{count} characters left",
+    "validation": {
+      "titleTooLong": "Title must be {max} characters or fewer.",
+      "descriptionRequired": "Description is required.",
+      "descriptionTooLong": "Description must be {max} characters or fewer.",
+      "pointsInvalid": "Points must be a whole number of 0 or more."
     }
   },
   "logs": {
@@ -895,6 +923,7 @@
     "loadPermissionsFailed": "Failed to load permissions.",
     "loadClientsFailed": "Failed to load API clients.",
     "loadLogsFailed": "Failed to load log files.",
+    "loadPointsRulesFailed": "Failed to load points rules.",
     "loadSettingsFailed": "Failed to load point settings.",
     "loadPackagesFailed": "Failed to load packages.",
     "codes": {

@@ -1,6 +1,7 @@
 import {
   Building2,
   ChartColumn,
+  Coins,
   CreditCard,
   FileText,
   FolderTree,
@@ -134,6 +135,12 @@ export const navigation: NavSection[] = [
         labelKey: 'nav.pointSettings',
         icon: Gauge,
         anyPermission: [P.LoyaltyConfigurationRead],
+      },
+      {
+        name: 'points-rules',
+        labelKey: 'nav.pointsRules',
+        icon: Coins,
+        anyPermission: [P.PointsRulesRead],
       },
     ],
   },
