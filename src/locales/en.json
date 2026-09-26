@@ -415,7 +415,32 @@
     "completedUsersHint": "Members who have used a voucher for this offer at this branch, counted once each. Branch figures are separate statistics and do not add up to the offer's own total.",
     "duplicateError": "This offer already has a rule for that branch.",
     "snapshotNote": "Changing a rule never alters a voucher already issued under it — each voucher keeps the terms it was activated with.",
-    "fallbackNote": "A branch with no rule uses the offer's own required points and discount."
+    "fallbackNote": "A branch with no rule uses the offer's own required points and discount.",
+    "offerDefault": "Offer default: {value}",
+    "pointsValue": "{points} pts"
+  },
+  "branchPricing": {
+    "action": "Branch pricing",
+    "title": "Branch pricing",
+    "defaults": "Offer defaults",
+    "defaultsOnly": "Defaults only",
+    "overrideCount": "{count} branch override | {count} branch overrides",
+    "source": "Source",
+    "sourceRule": "Branch rule",
+    "sourceDefault": "Offer default",
+    "outsideWindow": "Outside window",
+    "inactiveBranch": "Inactive branch",
+    "outOfScope": "Not in offer's branches",
+    "addRule": "Add rule",
+    "editRule": "Edit rule",
+    "openRulesPage": "Open in branch rules",
+    "noMerchant": "This offer has no merchant, so it has no branches to price. Assign a merchant to the offer to set per-branch terms.",
+    "noPermission": "You do not have permission to view branch offer rules.",
+    "branchesUnknown": "This offer applies to every branch of its merchant, but your role cannot list branches. Only branches with their own rule are shown; every other branch uses the offer defaults.",
+    "truncated": "Only the first {count} rules are shown. Open the branch rules page to see them all.",
+    "empty": "No branches to show.",
+    "emptyMerchant": "This offer's merchant has no branches yet.",
+    "emptyRestricted": "This offer is restricted to specific branches, but none are linked. Edit the offer to choose its branches."
   },
   "discountTypes": {
     "Percentage": "Percentage",

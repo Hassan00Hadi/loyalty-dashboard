@@ -14,6 +14,7 @@ import BaseSelect, { type SelectOption } from '@/components/ui/BaseSelect.vue'
 import BaseTextarea from '@/components/ui/BaseTextarea.vue'
 import BaseToggle from '@/components/ui/BaseToggle.vue'
 import ListToolbar from '@/components/ui/ListToolbar.vue'
+import OfferBranchPricingModal from '@/components/ui/OfferBranchPricingModal.vue'
 import StatusBadge from '@/components/ui/StatusBadge.vue'
 import CheckboxGroup, { type CheckboxOption } from '@/components/forms/CheckboxGroup.vue'
 import BaseTable, { type TableColumn } from '@/components/tables/BaseTable.vue'
@@ -525,6 +526,12 @@ async function save(): Promise<void> {
   }
 }
 
+// ── Branch pricing ────────────────────────────────────────────────────────────
+// What the offer costs and gives at each branch. Not a column on the list: the
+// rule count would take one request per row, so it lives in this view instead.
+
+const pricingOffer = ref<AdminOffer | null>(null)
+
 async function toggleActive(offer: AdminOffer): Promise<void> {
   try {
     await updateOffer(offer.id, { isActive: !offer.isActive })
@@ -725,9 +732,9 @@ async function toggleActive(offer: AdminOffer): Promise<void> {
               v-if="can(P.BranchDiscountsRead)"
               variant="ghost"
               size="sm"
-              @click="$router.push({ name: 'branch-rules', query: { offerId: row.id } })"
+              @click="pricingOffer = row"
             >
-              {{ $t('offers.branchRules') }}
+              {{ $t('branchPricing.action') }}
             </BaseButton>
             <BaseButton
               v-if="can(P.OffersUpdate)"
@@ -991,6 +998,15 @@ async function toggleActive(offer: AdminOffer): Promise<void> {
       </form>
 
       <template #footer>
+        <!-- Opens over the form; the defaults it shows are the saved ones, not the edits. -->
+        <BaseButton
+          v-if="editing && can(P.BranchDiscountsRead)"
+          variant="ghost"
+          class="sm:me-auto"
+          @click="pricingOffer = editing"
+        >
+          {{ $t('branchPricing.action') }}
+        </BaseButton>
         <BaseButton variant="secondary" :disabled="saving" @click="modalOpen = false">
           {{ $t('common.cancel') }}
         </BaseButton>
@@ -999,5 +1015,11 @@ async function toggleActive(offer: AdminOffer): Promise<void> {
         </BaseButton>
       </template>
     </BaseModal>
+
+    <OfferBranchPricingModal
+      :open="pricingOffer !== null"
+      :offer="pricingOffer"
+      @close="pricingOffer = null"
+    />
   </div>
 </template>
